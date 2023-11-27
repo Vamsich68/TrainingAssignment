@@ -11,8 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import lombok.Data;
-import lombok.NonNull;
-import org.aspectj.lang.annotation.RequiredTypes;
+
 
 @Data
 @Entity
@@ -20,30 +19,41 @@ import org.aspectj.lang.annotation.RequiredTypes;
 //@Table(name="Employees")
 public class Employee {
     @Id
-   @GeneratedValue
-    public int id;
+    @GeneratedValue
+    public Integer id;
 
 
-    @Size(min = 3)
-    @NotBlank(message = "enter first name")
+    //@Size(min = 3)
+    //@NotBlank(message = "enter first name")
     @Convert(converter = Encrypt.class)
     public String firstName;
-    @NotBlank(message = "enter last name")
+
+    //@NotBlank(message = "enter last name")
     @Convert(converter = Encrypt.class)
     public String lastName;
-    @NotNull(message = "enter date in YYYY-MM-DD format")
+
+    //@NotNull(message = "enter date in YYYY-MM-DD format")
     @JsonFormat(pattern = "yyyy-MM-dd")
     public LocalDate DOB;
-    @NotBlank()
-    @Size(max = 20)
+
+
+    //@NotBlank(message = "enter details in address field")
+    //@Size(max = 20)
     public String address;
-    @NotBlank(message = "email filed is required")
-    @Email(message = "Enter valid email")
+
+    //@NotBlank(message = "email is required")
+    //@Email(message = "Enter valid email")
     @Convert(converter = Encrypt.class)
     public String email;
 
-    @NotNull(message = "enter valid phone number")
+
+    //@NotNull(message = "enter valid phone number")
+    @Convert(converter = Encrypt.class)
+    //@Size(max = 10)
     public int phoneNumber;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    private  ImageData image;
 
     public Employee(int id,String firstName, String lastName, String DOB, String address, String email, int phoneNumber) {
         this.id=id;

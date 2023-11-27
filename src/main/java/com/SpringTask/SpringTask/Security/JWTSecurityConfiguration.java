@@ -92,7 +92,6 @@ public class JWTSecurityConfiguration {
         var jwtset = new JWKSet(rsaKey);
         return (jwkSelector,context)->jwkSelector.select(jwtset);
         /*var jwtSource = new JWKSource() {
-
             @Override
             public List get(JWKSelector jwkSelector, SecurityContext securityContext) throws KeySourceException {
                 return jwkSelector.select(jwtset);
