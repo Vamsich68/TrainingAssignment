@@ -27,7 +27,7 @@ public class JWTAuthService {
         var claims= JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plusSeconds(60*15))
+                .expiresAt(Instant.now().plusSeconds(60*30))
                 .claim("scope",createScope(authentication))
                 .build();
         return  jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

@@ -1,5 +1,6 @@
 package com.SpringTask.SpringTask.FilesSystem;
 
+import com.SpringTask.SpringTask.Data.EmployeeController;
 import com.SpringTask.SpringTask.Models.ImageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,29 +23,32 @@ public class FileService {
                        .name(file.getOriginalFilename())
                        .type(file.getContentType())
                        .id(5)
-               .imageData(ImageUtils.compressImage(file.getBytes())).build());
-       if (imageData!=null){
-           return "file uploaded "+ file.getOriginalFilename();
+               .image_filedata(ImageUtils.compressImage(file.getBytes())).build());
+       /*if (imageData!=null){
+           return String.valueOf(imageData.getId());
        }
-       return "error while uploading";
-
+       throw new EmployeeController.CustomException("error while saving file");*/
+       return String.valueOf(imageData.getId());
    }
-    public String uploadImageFile(MultipartFile file) throws IOException {
+    public int uploadImageFile(MultipartFile file) throws IOException {
         ImageData imageData= filesRepo.save(ImageData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .id(filesRepo.findAll().size()+1)
-                .imageData(ImageUtils.compressImage(file.getBytes())).build());
-        if (imageData!=null){
+                .image_filedata(ImageUtils.compressImage(file.getBytes())).build());
+        /*if (imageData!=null){
             return "file uploaded "+ file.getOriginalFilename();
         }
-        return "error while uploading";
+        return "error while uploading";*/
+        //return String.valueOf(imageData.getId());
+        //return String.valueOf(imageData.getId());
+        return imageData.getId();
 
     }
 
     public byte[] downloadImage(String fileName) {
         Optional<ImageData> dbImageData = filesRepo.findByName(fileName);
-        byte[] images = ImageUtils.decompressImage(dbImageData.get().getImageData());
+        byte[] images = ImageUtils.decompressImage(dbImageData.get().getImage_filedata());
         return images;
     }
 

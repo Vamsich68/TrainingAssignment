@@ -6,6 +6,7 @@ import com.SpringTask.SpringTask.Models.Employee;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +21,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest(EmployeeController.class)
 class ControllerUsingWebMvcTest {
     @MockBean
@@ -34,7 +34,7 @@ class ControllerUsingWebMvcTest {
 
     @Test
     public void test_createEmployee() throws Exception {
-        Employee employee = new Employee(55, "vamsi","ch","1999-12-12T00:00:00", "warangal","aaa@gmail.com",1234056789);
+        Employee employee = new Employee( 1,"vamsi","ch", "warangal","aaa@gmail.com",1234056789,1);
         when(employeeService.save(any(Employee.class))).thenReturn(employee);
 
         mockMvc.perform(post("/createEmployee")

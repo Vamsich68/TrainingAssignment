@@ -13,23 +13,30 @@ import java.util.Arrays;
 
 
 @Entity
-@Table(name = "NewImageData")
+@Table(name = "tableImageData")
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor
 public class ImageData {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
     private String type;
-    @Lob
-    @Column(name = "imagedata",length = 1000)
-    private byte[] imageData;
-    @OneToOne(cascade=CascadeType.ALL)
-private Employee employee;
 
+    @Lob
+    @Column(name = "image_filedata", columnDefinition = "LONGBLOB")
+    private byte[] image_filedata;
+
+    /*@OneToOne(cascade=CascadeType.ALL)
+    private Employee employee;*/
+    /*@OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    @Column(name = "employee_id", insertable = false, updatable = false)
+    private Integer employeeId;
+*/
     public ImageData() {
     }
 
@@ -37,9 +44,17 @@ private Employee employee;
         //this.id = id;
         this.name = name;
         this.type = type;
-        this.imageData = imageData;
+        this.image_filedata = imageData;
     }
 
+
+    /*public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }*/
     public int getId() {
         return id;
     }
@@ -64,13 +79,11 @@ private Employee employee;
         this.type = type;
     }
 
-    public byte[] getImageData() {
-        return imageData;
+    public byte[] getImage_filedata() {
+        return image_filedata;
     }
 
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
+    public void setImage_filedata(byte[] image_filedata) {
+        this.image_filedata = image_filedata;
     }
-
-
 }
